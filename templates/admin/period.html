@@ -1,0 +1,41 @@
+{% extends 'root.html' %}
+{% block content %}
+{% if current_user.is_admin %}
+  <section class="content">
+    <div class="row">
+        <h2>Upcoming Elections</h2>
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-body">
+            <table id="example1" class="table table-bordered table-hover table-striped">
+              <thead class="table-dark">
+                <th>Election</th>
+                <th>#Candidates</th>
+                <th>Starting</th>
+                <th>Ending</th>
+                <th>Status</th>
+                <th>Action</th>
+              </thead>
+              <tbody>
+                {% for election in upcoming_elections %}
+                    <tr>
+                        <td>{{election.position_name}}</td>
+                        <td>{{election.num_candidates}}</td>
+                        <td>{{election.start_time}}</td>
+                        <td>{{election.end_time}}</td>
+                        <td class={{election.status_class}}>{{election.status}}</td>
+                        <td>
+                            <a href="{{url_for('editVotingPeriod')}}"><button
+                                class='btn btn-primary btn-sm edit btn-flat'><i class='fa fa-edit'></i> Edit</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% endblock content %}

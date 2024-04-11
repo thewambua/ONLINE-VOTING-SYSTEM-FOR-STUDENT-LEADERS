@@ -1,0 +1,42 @@
+{% extends 'root.html' %}
+{% block content %}
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-hover table-striped">
+                <thead class="table-dark">
+                  <th>Position</th>
+                  <th>Candidate</th>
+                  <th>Photo</th>
+                  <th>Votes</th>
+                </thead>
+                <tbody>
+                  {% for position, candidates in grouped_candidates.items() %}
+                    {% for candidate in candidates %}
+                      <tr>
+                        {% if loop.first %}
+                          <td rowspan="{{ candidates|length }}">{{ position.position_name }}</td>
+                        {% endif %}
+                        <td>{{ candidate.first_name }} {{ candidate.last_name }}</td>
+                        {% if candidate.candidate_img.startswith('img/') %}
+                          <td><img src="{{url_for('static', filename=candidate.candidate_img)}}" alt=""></td>
+                          {% else %}
+                            <td><img src="{{candidate.candidate_img}}" alt=""></td>
+                        {% endif %}
+                        <td>
+                          {% set vote_count = candidate.votes|length %}
+                          {{ vote_count }}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock content %}

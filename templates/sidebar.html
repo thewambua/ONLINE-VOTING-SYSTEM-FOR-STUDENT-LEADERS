@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    {% if current_user.is_authenticated %}
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="{{url_for('static', filename='img/userplaceholder.png')}}" class="img-circle" alt="User Image">
+        </div>
+        <small class="text-primary">{{current_user.first_name}}  {{current_user.last_name}}</small>
+        <div class="pull-left info">
+          <p>{{ request.user }}</p>
+          <a><i class="fa fa-circle text-success"></i> Online</a>
+
+        </div>
+        
+      </div>
+    {% endif %}
+    
+    <!--sidebar menu-->
+    <ul class="sidebar-menu" data-widget="tree">
+      {% if current_user.is_admin %}
+        <li class="header">REPORTS</li>
+        <li class=""><a href="{{url_for('home')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li class=""><a href="{{url_for('votes')}}"><i class="fa fa-edit"></i><span>Votes</span></a></li>
+        <li class=""><a href="{{url_for('results')}}"><i class="fa fa-edit"></i><span>Results</span></a></li>
+        <li class="header">MANAGE</li>
+        <li class=""><a href="{{url_for('elections')}}"><i class="fa fa-tasks"></i> <span>Elections</span></a></li>
+        <li class=""><a href="{{url_for('voters')}}"><i class="fa fa-users"></i> <span>Voters</span></a></li>
+        <li class=""><a href="{{url_for('positions')}}"><i class="fa fa-tasks"></i> <span>Positions</span></a></li>
+        <li class=""><a href="{{url_for('candidates')}}"><i class="fa fa-black-tie"></i> <span>Candidates</span></a></li>
+        <li class=""><a href="{{url_for('ballot_positions')}}"><i class="fa fa-file-text"></i> <span>Ballot Position</span></a></li>
+        <li class="header">EXIT</li>
+        <li class=""><a href="{{url_for('logout')}}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
+        {% else %}
+          <li class="header">REPORTS</li>
+          <li class=""><a href="{{url_for('votes')}}"><i class="fa fa-edit"></i><span>Votes</span></a></li>
+          <li class=""><a href="{{url_for('ballot_positions')}}"><i class="fa fa-file-text"></i><span>Ballot Position</span></a></li>
+          <li class=""><a href="{{url_for('results')}}"><i class="fa-solid fa-square-poll-horizontal"></i> <span>Results</span></a></li>
+          <li class=""><a href="{{url_for('my_votes', user_id=current_user.id)}}"><i class="fa-solid fa-square-poll-horizontal"></i>  <span>My Votes</span></a></li>
+          <li class="header">EXIT</li>
+          <li class=""><a href="{{url_for('logout')}}"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
+      {% endif %}
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>
